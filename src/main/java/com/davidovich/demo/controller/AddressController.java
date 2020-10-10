@@ -2,6 +2,10 @@ package com.davidovich.demo.controller;
 
 
 import com.davidovich.demo.model.AddressQueryDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +26,7 @@ public class AddressController {
     }
 
     @PostMapping("/address")
-    public ResponseEntity<String> callAddress (@RequestBody AddressQueryDTO dto) {
+    public ResponseEntity<String> callAddress (@RequestBody AddressQueryDTO dto) throws JsonProcessingException {
         System.out.println(dto);
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/json");
@@ -37,7 +41,19 @@ public class AddressController {
                         String.class);
 
 
-        return ResponseEntity.ok(response);
+        ResponseEntity<String> responseFor = ResponseEntity.ok(response);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(response);
+        JsonNode root = jsonNode.get("suggestions");
+        if (root.isArray()) {
+            ArrayNode arrayNode = (ArrayNode) root;
+            for(int i = 0; i < arrayNode.size(); i++) {
+                JsonNode arrayElement = arrayNode.get(i);
+                System.out.println(arrayElement.get("value").asText());
+            }
+        }
+        return responseFor;
     }
 
 }
