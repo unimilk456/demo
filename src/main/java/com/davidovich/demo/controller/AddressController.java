@@ -26,12 +26,6 @@ public class AddressController {
     @PostMapping("/address")
     public ResponseEntity<String> callAddress (@RequestBody AddressQueryDTO dto) throws JsonProcessingException {
         dadaService.getData(dto);
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Accept", "application/json");
-        headers.set("Content-Type", "application/json");
-        headers.set("Authorization", "Token 717792a0f6715fcc0031ab70d378143ccda2733d");
-
-        HttpEntity<AddressQueryDTO> request = new HttpEntity<>(dto, headers);
         return null;
 
     }

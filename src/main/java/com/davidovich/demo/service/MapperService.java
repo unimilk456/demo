@@ -10,19 +10,32 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class MapperService {
     public DadaDTO transform (String string) throws JsonProcessingException {
 
+        ArrayList<DadaDTO> arrDadaDTO = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(string);
         JsonNode root = jsonNode.get("suggestions");
+
         if (root.isArray()) {
             ArrayNode arrayNode = (ArrayNode) root;
             for(int i = 0; i < arrayNode.size(); i++) {
                 JsonNode arrayElement = arrayNode.get(i);
-                System.out.println(arrayElement.get("value").asText());
+//                JsonNode jsonNode = objectMapper.readTree(string);
+//                JsonNode root = jsonNode.get("suggestions");
+//                JsonNode root1 = arrayElement.get("data");
+
+                String indexJS =  arrayElement.at("/data/postal_code").asText();
+                DadaDTO dadaDTO = context.getBean();
+                dadaDTO.setIndex(indexJS);
+                System.out.println(indexJS);
+//                System.out.println(root1.get("data").asText());
             }
         }
         return null;
