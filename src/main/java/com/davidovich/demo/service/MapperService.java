@@ -32,7 +32,7 @@ public class MapperService {
 //                JsonNode root1 = arrayElement.get("data");
 
                 String indexJS =  arrayElement.at("/data/postal_code").asText();
-                DadaDTO dadaDTO = context.getBean();
+                DadaDTO dadaDTO;
                 dadaDTO.setIndex(indexJS);
                 System.out.println(indexJS);
 //                System.out.println(root1.get("data").asText());
