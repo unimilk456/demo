@@ -20,9 +20,9 @@ public class DemoApplication {
 		return new RestTemplate();
 	}
 
-//	@Bean
-//	@Scope("prototype")
-//	public DadaDTO dadaDTO() {
-//		return new DadaDTO();
-//	}
+	@Bean
+	@Scope("prototype")
+	public DadaDTO dadaDTO() {
+		return new DadaDTO();
+	}
 }

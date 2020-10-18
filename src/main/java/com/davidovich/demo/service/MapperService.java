@@ -7,9 +7,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.ObjectInputFilter;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -18,6 +21,7 @@ import java.util.Set;
 public class MapperService {
     public DadaDTO transform (String string) throws JsonProcessingException {
 
+        ApplicationContext context = new AnnotationConfigApplicationContext(ObjectInputFilter.Config.class);
         ArrayList<DadaDTO> arrDadaDTO = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(string);
@@ -32,7 +36,7 @@ public class MapperService {
 //                JsonNode root1 = arrayElement.get("data");
 
                 String indexJS =  arrayElement.at("/data/postal_code").asText();
-                DadaDTO dadaDTO;
+                DadaDTO dadaDTO = new DadaDTO();
                 dadaDTO.setIndex(indexJS);
                 System.out.println(indexJS);
 //                System.out.println(root1.get("data").asText());
