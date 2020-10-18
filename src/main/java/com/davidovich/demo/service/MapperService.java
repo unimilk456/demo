@@ -14,34 +14,45 @@ import org.springframework.stereotype.Service;
 
 import java.io.ObjectInputFilter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class MapperService {
-    public DadaDTO transform (String string) throws JsonProcessingException {
+    public List<DadaDTO> transform(String string) throws JsonProcessingException {
 
-        ApplicationContext context = new AnnotationConfigApplicationContext(ObjectInputFilter.Config.class);
-        ArrayList<DadaDTO> arrDadaDTO = new ArrayList<>();
+        List<DadaDTO> arrDadaDTO = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(string);
         JsonNode root = jsonNode.get("suggestions");
 
         if (root.isArray()) {
             ArrayNode arrayNode = (ArrayNode) root;
-            for(int i = 0; i < arrayNode.size(); i++) {
+            for (int i = 0; i < arrayNode.size(); i++) {
                 JsonNode arrayElement = arrayNode.get(i);
-//                JsonNode jsonNode = objectMapper.readTree(string);
-//                JsonNode root = jsonNode.get("suggestions");
-//                JsonNode root1 = arrayElement.get("data");
 
-                String indexJS =  arrayElement.at("/data/postal_code").asText();
-                DadaDTO dadaDTO = new DadaDTO();
-                dadaDTO.setIndex(indexJS);
+                String indexJS = arrayElement.at("/data/postal_code").asText();
+                String region = arrayElement.at("/data/region").asText();
+                String city = arrayElement.at("/data/city").asText();
+                String settlement = arrayElement.at("/data/settlement").asText();
+                String street = arrayElement.at("/data/street").asText();
+                String house = arrayElement.at("/data/house").asText();
+
+                DadaDTO dadaDTO = DadaDTO.builder()
+                        .index(indexJS.equals("null")? null : indexJS)
+                        .region(region.equals("null")? null : region)
+                        .city(city.equals("null")? null : city)
+                        .settlement(settlement.equals("null")? null : settlement)
+                        .street(street.equals("null")? null : street)
+                        .house(house.equals("null")? null : house)
+                        .build();
+
+                arrDadaDTO.add(dadaDTO);
                 System.out.println(indexJS);
 //                System.out.println(root1.get("data").asText());
             }
         }
-        return null;
+        return arrDadaDTO;
     }
 }

@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class DadaService {
     final private  MapperService mapperService;
 
 
-    public ResponseEntity<DadaDTO> getData (AddressQueryDTO dto) throws JsonProcessingException {
+    public List<DadaDTO> getData (AddressQueryDTO dto) throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/json");
         headers.set("Content-Type", "application/json");
@@ -36,10 +38,8 @@ public class DadaService {
                         String.class);
 
 
-        DadaDTO dadaDTO = mapperService.transform(response);
+        List<DadaDTO> dadaDTOList = mapperService.transform(response);
 
-        ResponseEntity<DadaDTO> responseFor = ResponseEntity.ok(dadaDTO);
-
-        return responseFor;
+        return dadaDTOList;
     }
 }
