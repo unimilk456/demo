@@ -1,15 +1,11 @@
 package com.davidovich.demo.service;
 
-import com.davidovich.demo.model.AddressQueryDTO;
-import com.davidovich.demo.model.DadaDTO;
+import com.davidovich.demo.dto.AddressQueryDTO;
+import com.davidovich.demo.dto.DadaDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

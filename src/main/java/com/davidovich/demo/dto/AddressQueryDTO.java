@@ -1,4 +1,4 @@
-package com.davidovich.demo.model;
+package com.davidovich.demo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

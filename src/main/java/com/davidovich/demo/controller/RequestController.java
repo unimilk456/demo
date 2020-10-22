@@ -1,5 +1,6 @@
 package com.davidovich.demo.controller;
 
+import com.davidovich.demo.dto.RequestDTO;
 import com.davidovich.demo.model.Person;
 import com.davidovich.demo.model.Request;
 import com.davidovich.demo.service.RequestService;
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequestMapping("/api")
@@ -14,11 +16,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RequestController {
 
-        @Autowired
-        RequestService requestService;
+        private final RequestService requestService;
 
         @GetMapping("/requests")
-        private List<Request> getAllRequests() {
+        private Iterable<Request> getAllRequests() {
             return requestService.getAllRequests();
         }
 
@@ -33,8 +34,17 @@ public class RequestController {
         }
 
         @PostMapping("/requests")
-        private int savePerson(@RequestBody Request request) {
-            requestService.saveOrUpdate(request);
-            return request.getId();
+        private int savePerson(@RequestBody RequestDTO requestDTO) {
+            Request request = new Request(requestDTO.getRequest(),
+                    requestDTO.getLocal_date_time(),
+                    requestDTO.getIndex(),
+                    requestDTO.getRegion(),
+                    requestDTO.getCity(),
+                    requestDTO.getSettlement(),
+                    requestDTO.getStreet(),
+                    requestDTO.getHouse()
+            );
+            Request result = requestService.saveOrUpdate(request);
+            return result.getId();
         }
 }

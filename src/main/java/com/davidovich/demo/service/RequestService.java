@@ -2,6 +2,7 @@ package com.davidovich.demo.service;
 
 import com.davidovich.demo.model.Request;
 import com.davidovich.demo.repository.RequestRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,22 +11,21 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class RequestService {
-    @Autowired
-    RequestRepository requestRepository ;
 
-    public List<Request> getAllRequests() {
-        List<Request> requests = new ArrayList<Request>();
-        requestRepository.findAll().forEach(request -> requests.add(request));
-        return requests;
+    private final RequestRepository requestRepository ;
+
+    public Iterable<Request> getAllRequests() {
+        return requestRepository.findAll();
     }
 
     public Request getRequestById(int id) {
         return requestRepository.findById(id).get();
     }
 
-    public void saveOrUpdate(Request request) {
-        requestRepository.save(request);
+    public Request saveOrUpdate(Request request) {
+        return requestRepository.save(request);
     }
 
     public void delete(int id) {
