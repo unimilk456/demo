@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 @Data
-public class RequestDTO {
+public class SuggestionDTO {
     private final String request;
     private final LocalDateTime local_date_time;
     private final String index;

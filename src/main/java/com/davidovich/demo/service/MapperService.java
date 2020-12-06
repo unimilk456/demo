@@ -2,6 +2,7 @@ package com.davidovich.demo.service;
 
 
 import com.davidovich.demo.dto.DadaDTO;
+import com.davidovich.demo.model.Suggestion;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,5 +50,22 @@ public class MapperService {
             }
         }
         return arrDadaDTO;
+    }
+
+    public List<DadaDTO> transform(List<Suggestion> suggestions) {
+        List<DadaDTO> res = new ArrayList<>();
+        suggestions.stream()
+            .forEach(s -> {
+                DadaDTO dadaDTO = DadaDTO.builder()
+                    .index(s.getIndex())
+                    .region(s.getRegion())
+                    .city(s.getCity())
+                    .settlement(s.getSettlement())
+                    .street(s.getStreet())
+                    .house(s.getHouse())
+                    .build();
+                res.add(dadaDTO);
+            });
+        return res;
     }
 }

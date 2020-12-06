@@ -16,10 +16,10 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Request")
-public class Request {
+@Table(name = "Suggestion")
+public class Suggestion {
 
-    public Request(String request,  LocalDateTime localDateTime,
+    public Suggestion(String request,  LocalDateTime localDateTime,
                    String index, String region, String city, String settlement, String street, String house) {
         this.request = request;
         this.localDateTime = localDateTime;

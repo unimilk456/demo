@@ -1,4 +1,4 @@
-insert into Request (request, local_date_time,
+insert into Suggestion (request, local_date_time,
     index,
     region,
     city,

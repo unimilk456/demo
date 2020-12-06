@@ -1,0 +1,16 @@
+POST https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address
+Content-Type: application/json
+Accept: application/json
+Authorization: Token 717792a0f6715fcc0031ab70d378143ccda2733d
+
+{"query": "москва адмирала"}
+
+###
+
+POST http://localhost:8080/api/address
+Content-Type: application/json
+Accept: application/json
+
+{"query": "москва адмирала"}
+
+
