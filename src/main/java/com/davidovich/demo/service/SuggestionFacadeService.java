@@ -5,6 +5,7 @@ import com.davidovich.demo.dto.DadaDTO;
 import com.davidovich.demo.model.Suggestion;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,10 +36,12 @@ public class SuggestionFacadeService {
 //        String res = mapperObjectToJSONService.transform(data);
     System.out.println("__________");
 //        System.out.println(data);
+    LocalDateTime localDateTime = LocalDateTime.now().minus(3, ChronoUnit.MONTHS);
+
     data.forEach((dadaDTO) -> {
       Suggestion request = Suggestion.builder()
           .request(dto.getQuery())
-          .localDateTime(LocalDateTime.now())
+          .localDateTime(localDateTime)
           .index(dadaDTO.getIndex())
           .region(dadaDTO.getRegion())
           .city(dadaDTO.getCity())

@@ -15,7 +15,7 @@ public class CleanerService {
 
   private final SuggestionRepository suggestionRepository;
 
-  @Scheduled(cron = "* */5 * * * ?")
+  @Scheduled(cron = "0 0/2 * * * ?")
   public void clean() {
     log.info("Starting cleaning...");
     suggestionRepository.deleteOlderThen(LocalDateTime.now().minus(1, ChronoUnit.MONTHS));
